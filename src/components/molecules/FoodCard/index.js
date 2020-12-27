@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
-import { FoodDummy1, IcStarOff, IcStarOn } from '../../../assets'
+import { Rating } from '..'
 import Fonts from '../../../const/Fonts'
 
 const FoodCard = ({ image }) => {
@@ -9,16 +9,7 @@ const FoodCard = ({ image }) => {
       <Image source={image} style={styles.image} />
       <View style={styles.content}>
         <Text>Cherry Healty</Text>
-        <View style={styles.ratingContainer}>
-          <View style={styles.starContainer}>
-            <IcStarOn />
-            <IcStarOn />
-            <IcStarOn />
-            <IcStarOn />
-            <IcStarOff />
-          </View>
-          <Text>4.5</Text>
-        </View>
+        <Rating />
       </View>
     </View>
   )
@@ -42,6 +33,5 @@ const styles = StyleSheet.create({
   image: { width: 200, height: 140, resizeMode: 'cover' },
   content: { padding: 12 },
   text: { fontSize: 16, fontFamily: Fonts.POPPINS_REGULAR, color: '#020202' },
-  ratingContainer: { flexDirection: 'row' },
-  starContainer: { flexDirection: 'row' }
+
 })
