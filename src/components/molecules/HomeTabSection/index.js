@@ -9,7 +9,13 @@ const renderTabBar = props => (
   <TabBar
     {...props}
     indicatorStyle={{ backgroundColor: '#020202', height: 3, width: '15%', marginLeft: '3%' }}
-    style={{ backgroundColor: 'white' }}
+    style={{
+      backgroundColor: 'white',
+      elevation: 0,
+      shadowOpacity: 0,
+      borderBottomColor: '#F2F2F2',
+      borderBottomWidth: 1
+    }}
     tabStyle={{ width: 'auto' }}
     renderLabel={({ route, focused, color }) => (
       <Text style={{
@@ -77,6 +83,7 @@ const HomeTabSection = () => {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={initialLayout}
+      style={{ backgroundColor: 'white' }}
     />
   )
 }
