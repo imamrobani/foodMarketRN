@@ -1,51 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import { FoodDummy1, ProfileDummy, FoodDummy2, FoodDummy3, FoodDummy4 } from '../../assets'
-import { FoodCard, Gap } from '../../components'
+import { FoodCard, Gap, HomeTabSection } from '../../components'
 import Fonts from '../../const/Fonts'
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
-
-const renderTabBar = props => (
-  <TabBar
-    {...props}
-    indicatorStyle={{ backgroundColor: '#020202', height: 3, width: '15%', marginLeft: '3%' }}
-    style={{ backgroundColor: 'white' }}
-    tabStyle={{ width: 'auto' }}
-    renderLabel={({ route, focused, color }) => (
-      <Text style={{
-        fontFamily: Fonts.POPPINS_REGULAR,
-        color: focused ? '#020202' : '#8D92A3'
-      }}>
-        {route.title}
-      </Text>
-    )}
-  />
-);
-
-const FirstRoute = () => (
-  <View style={{ backgroundColor: '#ff4081', flex: 1 }} />
-);
-
-const SecondRoute = () => (
-  <View style={{ backgroundColor: '#673ab7', flex: 1 }} />
-);
-
-const initialLayout = { width: Dimensions.get('window').width }
 
 const Home = () => {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: '1', title: 'New Taste' },
-    { key: '2', title: 'Popular' },
-    { key: '3', title: 'Recommended' },
-  ]);
-
-  const renderScene = SceneMap({
-    1: FirstRoute,
-    2: SecondRoute,
-    3: FirstRoute,
-  });
-
   return (
     <View style={styles.page}>
       <View style={styles.profileContainer}>
@@ -67,13 +26,7 @@ const Home = () => {
         </ScrollView>
       </View>
       <View style={styles.tabContainer}>
-        <TabView
-          renderTabBar={renderTabBar}
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={initialLayout}
-        />
+        <HomeTabSection />
       </View>
     </View>
   )
