@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { Rating } from '..'
-import Fonts from '../../../const/Fonts'
+import { Colors, Fonts } from '../../../const'
 
-const ItemListFood = ({ image, onPress }) => {
+const ItemListFood = ({ image, onPress, items, rating }) => {
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View style={styles.container}>
@@ -14,7 +14,8 @@ const ItemListFood = ({ image, onPress }) => {
           <Text style={styles.title}>Soup Bumil</Text>
           <Text style={styles.price}>IDR 289.000</Text>
         </View>
-        <Rating />
+        {items && !rating && <Text style={styles.items}>{items} items</Text>}
+        {rating && !items && <Rating />}
       </View>
     </TouchableOpacity>
   )
@@ -26,7 +27,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: 'white',
-    paddingHorizontal: 24,
     paddingVertical: 8,
     alignItems: 'center'
   },
@@ -41,11 +41,16 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: Fonts.POPPINS_REGULAR,
     fontSize: 16,
-    color: '#020202'
+    color: Colors.black
   },
   price: {
     fontFamily: Fonts.POPPINS_REGULAR,
     fontSize: 13,
-    color: '#8D92A3'
+    color: Colors.blueyGrey
+  },
+  items: {
+    fontSize: 13,
+    fontFamily: Fonts.POPPINS_REGULAR,
+    color: Colors.blueyGrey
   }
 })
