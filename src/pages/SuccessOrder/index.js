@@ -2,8 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { IlSuccesOrder } from '../../assets'
 import { Button, Gap } from '../../components'
-import { Colors } from '../../const'
-import Fonts from '../../const/Fonts'
+import { Fonts, Colors } from '../../const'
 
 const SuccessOrder = ({ navigation }) => {
   return (
@@ -39,16 +38,17 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
   title: {
     fontSize: 20,
     fontFamily: Fonts.POPPINS_REGULAR,
-    color: '#020202'
+    color: Colors.black
   },
   subTitle: {
     fontFamily: Fonts.POPPINS_LIGHT,
-    color: '#8D92A3'
+    color: Colors.blueyGrey
   },
   buttonContainer: {
     width: '100%',

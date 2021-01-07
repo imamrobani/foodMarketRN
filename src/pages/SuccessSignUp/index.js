@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { IlSuccessSignUp } from '../../assets'
 import { Button, Gap } from '../../components'
-import Fonts from '../../const/Fonts'
+import { Colors, Fonts } from '../../const'
 
 const SingUpSuccess = ({ navigation }) => {
   return (
@@ -27,16 +27,17 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
   title: {
     fontSize: 20,
     fontFamily: Fonts.POPPINS_REGULAR,
-    color: '#020202'
+    color: Colors.black
   },
   subTitle: {
     fontFamily: Fonts.POPPINS_LIGHT,
-    color: '#8D92A3'
+    color: Colors.blueyGrey
   },
   buttonContainer: {
     width: '100%',
