@@ -5,7 +5,7 @@ import { Button, Gap } from '../../components'
 import { Colors } from '../../const'
 import Fonts from '../../const/Fonts'
 
-const SuccessOrder = () => {
+const SuccessOrder = ({ navigation }) => {
   return (
     <View style={styles.page}>
       <IlSuccesOrder />
@@ -24,7 +24,7 @@ const SuccessOrder = () => {
       <View style={styles.buttonContainer}>
         <Button
           text='View My Order'
-          onPress={() => navigation.replace('MainApp')}
+          onPress={() => navigation.replace('MainApp', { screen: 'Order' })}
           color={Colors.blueyGrey}
           textColor='white'
         />
