@@ -27,7 +27,7 @@ const OrederSummary = ({ navigation }) => {
         <ItemValue label='City' value='Bandung' />
       </View>
       <View style={styles.button}>
-        <Button text='Checkout Now' />
+        <Button text='Checkout Now' onPress={() => navigation.replace('SuccessOrder')} />
       </View>
     </View>
   )
