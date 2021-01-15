@@ -4,7 +4,7 @@ import { FoodDummy1 } from '../../assets'
 import { Button, Gap, Header, ItemListFood, ItemValue } from '../../components'
 import { Colors, Fonts } from '../../const'
 
-const OrederSummary = ({ navigation }) => {
+const OrderDetail = ({ navigation }) => {
   return (
     <ScrollView>
       <Header title='Payment' subTitle='You deserve better meal' onBack={() => navigation.goBack()} />
@@ -31,15 +31,26 @@ const OrederSummary = ({ navigation }) => {
         <ItemValue label='House No.' value='A5 Hook' />
         <ItemValue label='City' value='Bandung' />
       </View>
-      <Gap height={40} />
+
+      <View style={styles.content}>
+        <Text style={styles.label}>Delivery to:</Text>
+        <ItemValue label='#FM209391' value='Paid' color={Colors.topaz} />
+      </View>
+
       <View style={styles.button}>
-        <Button text='Checkout Now' onPress={() => navigation.replace('SuccessOrder')} />
+        <Button
+          text='Cancel My Order'
+          onPress={() => navigation.replace('SuccessOrder')}
+          color={Colors.fadedRed}
+          textColor='white'
+        />
+        <Gap height={40} />
       </View>
     </ScrollView>
   )
 }
 
-export default OrederSummary
+export default OrderDetail
 
 const styles = StyleSheet.create({
   content: {

@@ -36,7 +36,7 @@ const InProgress = () => {
       <ItemListFood
         rating={3}
         image={FoodDummy1}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type='in-progress'
         items={3}
         price='2.000.000'
@@ -45,7 +45,7 @@ const InProgress = () => {
       <ItemListFood
         rating={3}
         image={FoodDummy3}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type='in-progress'
         items={3}
         price='2.000.000'
@@ -54,7 +54,7 @@ const InProgress = () => {
       <ItemListFood
         rating={3}
         image={FoodDummy2}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type='in-progress'
         items={3}
         price='2.000.000'
@@ -63,7 +63,7 @@ const InProgress = () => {
       <ItemListFood
         rating={3}
         image={FoodDummy4}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type='in-progress'
         items={3}
         price='2.000.000'
@@ -80,7 +80,7 @@ const PastOrders = () => {
       <ItemListFood
         rating={3}
         image={FoodDummy4}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type='past-orders'
         items={3}
         price='2.000.000'
@@ -90,7 +90,7 @@ const PastOrders = () => {
       <ItemListFood
         rating={3}
         image={FoodDummy3}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type='past-orders'
         items={3}
         price='2.000.000'
@@ -101,7 +101,7 @@ const PastOrders = () => {
       <ItemListFood
         rating={3}
         image={FoodDummy2}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type='past-orders'
         items={3}
         price='2.000.000'
@@ -111,7 +111,7 @@ const PastOrders = () => {
       <ItemListFood
         rating={3}
         image={FoodDummy1}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type='past-orders'
         items={3}
         price='2.000.000'
