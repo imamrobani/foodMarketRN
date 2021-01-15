@@ -8,6 +8,7 @@ import ItemListFood from './ItemListFood'
 import Counter from './Counter'
 import ItemValue from './ItemValue'
 import EmptyOrder from './EmptyOrder'
+import OrderTabSection from './OrderTabSection'
 
 export {
   Header,
@@ -19,5 +20,6 @@ export {
   ItemListFood,
   Counter,
   ItemValue,
-  EmptyOrder
+  EmptyOrder,
+  OrderTabSection
 }
