@@ -2,8 +2,12 @@ import React from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Header, TextInput, Gap, Button } from '../../components'
 import Fonts from '../../const/Fonts'
+import { useSelector } from 'react-redux'
 
 const SignUp = ({ navigation }) => {
+  const globalState = useSelector(state => state.globalReducer)
+  console.log('global', globalState)
+
   return (
     <View style={styles.page}>
       <Header title='Sign Up' subTitle='Register and eat' onBack={() => navigation.goBack()} />
@@ -16,6 +20,7 @@ const SignUp = ({ navigation }) => {
               </View>
             </View>
           </View>
+          <Text>{`status error: ${globalState.isError}`}</Text>
           <TextInput label='Full name' placeholder='Type your full name' />
           <Gap height={16} />
           <TextInput label='Email address' placeholder='Type your email address' />
