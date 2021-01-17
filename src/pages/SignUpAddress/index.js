@@ -4,7 +4,7 @@ import { Header, TextInput, Gap, Button, Select } from '../../components'
 import { useForm } from '../../utils'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 import { Colors } from '../../const'
 
 const SignUpAddress = ({ navigation }) => {
