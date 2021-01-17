@@ -18,20 +18,16 @@ const SignUpAddress = ({ navigation }) => {
   const registerReducer = useSelector(state => state.registerReducer)
 
   const onSubmit = () => {
-    console.log('form', form)
     const data = {
       ...form,
       ...registerReducer
     }
-    console.log('data register: ', data)
     axios.post('http://foodmarket-backend.buildwithangga.id/api/register', data)
       .then(res => {
-        console.log('data success: ', res.data)
         showToast('Registes Success', 'success')
         navigation.replace('SuccessSignUp')
       })
       .catch(err => {
-        console.log('error: ', err.response.data.message)
         showToast(err?.response?.data?.message)
       })
   }

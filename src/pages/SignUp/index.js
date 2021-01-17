@@ -15,7 +15,6 @@ const SignUp = ({ navigation }) => {
   const dispatch = useDispatch()
 
   const onSubmit = () => {
-    console.log('form', form)
     dispatch({ type: 'SET_REGISTER', value: form })
     navigation.navigate('SignUpAddress')
   }
