@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, View, ScrollView } from 'react-native'
-import { Header, TextInput, Gap, Button, Select } from '../../components'
-import { useForm, showMessage } from '../../utils'
-import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios'
+import { ScrollView, StyleSheet, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button, Gap, Header, Select, TextInput } from '../../components'
+import { setLoading, singUpAction } from '../../redux/action'
+import { useForm } from '../../utils'
 
 const SignUpAddress = ({ navigation }) => {
   const [form, setForm] = useForm({
@@ -21,37 +21,8 @@ const SignUpAddress = ({ navigation }) => {
       ...form,
       ...registerReducer
     }
-    dispatch({ type: 'SET_LOADING', value: true })
-    axios.post('http://foodmarket-backend.buildwithangga.id/api/register', data)
-      .then(res => {
-        console.log('data success', res.data)
-        if (photoReducer.isUploadPhoto) {
-          const photoForUpload = new FormData()
-          photoForUpload.append('file', photoReducer)
-
-          axios.post('http://foodmarket-backend.buildwithangga.id/api/user/photo',
-            photoForUpload,
-            {
-              headers: {
-                'Authorization': `${res.data.data.token_type} ${res.data.data.access_token}`,
-                'Content-Type': 'multipart/form-data'
-              }
-            })
-            .then(resUpload => {
-              console.log('succes upload: ', resUpload)
-            })
-            .catch(err => {
-              showMessage('Upload Photo tidak berhasil')
-            })
-        }
-        dispatch({ type: 'SET_LOADING', value: false })
-        showMessage('Registes Success', 'success')
-        navigation.replace('SuccessSignUp')
-      })
-      .catch(err => {
-        dispatch({ type: 'SET_LOADING', value: false })
-        showMessage(err?.response?.data?.message)
-      })
+    dispatch(setLoading(true))
+    dispatch(singUpAction(data, photoReducer, navigation))
   }
 
   return (
