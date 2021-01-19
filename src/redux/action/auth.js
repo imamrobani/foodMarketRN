@@ -45,3 +45,21 @@ export const singUpAction = (dataRegister, photoReducer, navigation) => (dispatc
       showMessage(err?.response?.data?.message)
     })
 }
+
+export const signInAction = (form, navigation) => (dispatch) => {
+  dispatch(setLoading(true))
+  axios.post(`${API_HOST.url}/login`, form)
+    .then(res => {
+      const token = `${res.data.data.token_type} ${res.data.data.access_token}`
+      const profile = res.data.data.user
+
+      dispatch(setLoading(false))
+      storeData('token', { value: token })
+      storeData('userProfile', profile)
+      navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] })
+    })
+    .catch(err => {
+      dispatch(setLoading(false))
+      showMessage(err?.response?.data?.message)
+    })
+}
