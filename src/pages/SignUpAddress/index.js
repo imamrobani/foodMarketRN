@@ -1,11 +1,9 @@
 import React from 'react'
 import { StyleSheet, View, ScrollView } from 'react-native'
 import { Header, TextInput, Gap, Button, Select } from '../../components'
-import { useForm } from '../../utils'
+import { useForm, showMessage } from '../../utils'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
-import { showMessage } from "react-native-flash-message";
-import { Colors } from '../../const'
 
 const SignUpAddress = ({ navigation }) => {
   const [form, setForm] = useForm({
@@ -16,7 +14,7 @@ const SignUpAddress = ({ navigation }) => {
   })
 
   const dispatch = useDispatch()
-  const registerReducer = useSelector(state => state.registerReducer)
+  const { registerReducer, photoReducer } = useSelector(state => state)
 
   const onSubmit = () => {
     const data = {
@@ -26,22 +24,34 @@ const SignUpAddress = ({ navigation }) => {
     dispatch({ type: 'SET_LOADING', value: true })
     axios.post('http://foodmarket-backend.buildwithangga.id/api/register', data)
       .then(res => {
+        console.log('data success', res.data)
+        if (photoReducer.isUploadPhoto) {
+          const photoForUpload = new FormData()
+          photoForUpload.append('file', photoReducer)
+
+          axios.post('http://foodmarket-backend.buildwithangga.id/api/user/photo',
+            photoForUpload,
+            {
+              headers: {
+                'Authorization': `${res.data.data.token_type} ${res.data.data.access_token}`,
+                'Content-Type': 'multipart/form-data'
+              }
+            })
+            .then(resUpload => {
+              console.log('succes upload: ', resUpload)
+            })
+            .catch(err => {
+              showMessage('Upload Photo tidak berhasil')
+            })
+        }
         dispatch({ type: 'SET_LOADING', value: false })
-        showToast('Registes Success', 'success')
+        showMessage('Registes Success', 'success')
         navigation.replace('SuccessSignUp')
       })
       .catch(err => {
         dispatch({ type: 'SET_LOADING', value: false })
-        showToast(err?.response?.data?.message)
+        showMessage(err?.response?.data?.message)
       })
-  }
-
-  const showToast = (message, type) => {
-    showMessage({
-      message,
-      type: type === 'success' ? 'success' : 'danger',
-      backgroundColor: type === 'success' ? Colors.topaz : Colors.fadedRed
-    });
   }
 
   return (

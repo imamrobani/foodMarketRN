@@ -4,7 +4,7 @@ import { Header, TextInput, Gap, Button } from '../../components'
 import Fonts from '../../const/Fonts'
 import { useDispatch } from 'react-redux'
 import { showMessage, useForm } from '../../utils'
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const SignUp = ({ navigation }) => {
   const [form, setForm] = useForm({
@@ -36,7 +36,10 @@ const SignUp = ({ navigation }) => {
           type: res.type,
           name: res.fileName
         }
+
         setPhoto(source)
+        dispatch({ type: 'SET_PHOTO', value: dataImage })
+        dispatch({ type: 'SET_UPLOAD_STATUS', value: true })
       }
     })
   }
