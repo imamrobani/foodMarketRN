@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { showMessage } from '../../utils'
+import { showMessage, storeData } from '../../utils'
 import { setLoading } from './global'
 
 const API_HOST = {
@@ -9,28 +9,27 @@ const API_HOST = {
 export const singUpAction = (dataRegister, photoReducer, navigation) => (dispatch) => {
   axios.post(`${API_HOST.url}/register`, dataRegister)
     .then(res => {
-      console.log('data success', res.data)
+      const token = `${res.data.data.token_type} ${res.data.data.access_token}`
+      const profile = res.data.data.user
+
+      storeData('userProfile', profile)
+      storeData('token', { value: token })
+
       if (photoReducer.isUploadPhoto) {
         const photoForUpload = new FormData()
         photoForUpload.append('file', photoReducer)
 
-        axios.post(`${API_HOST.url}/user/photo`,
-          photoForUpload,
-          {
-            headers: {
-              'Authorization': `${res.data.data.token_type} ${res.data.data.access_token}`,
-              'Content-Type': 'multipart/form-data'
-            }
-          })
-          .then(resUpload => {
-            console.log('succes upload: ', resUpload)
-          })
+        axios.post(`${API_HOST.url}/user/photo`, photoForUpload, {
+          headers: {
+            'Authorization': `${res.data.data.token_type} ${res.data.data.access_token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        })
           .catch(err => {
             showMessage('Upload Photo tidak berhasil')
           })
       }
       dispatch(setLoading(false))
-      showMessage('Registes Success', 'success')
       navigation.replace('SuccessSignUp')
     })
     .catch(err => {

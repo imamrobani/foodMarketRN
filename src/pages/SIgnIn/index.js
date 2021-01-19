@@ -39,7 +39,9 @@ const SignIn = ({ navigation }) => {
           secureTextEntry
         />
         <Gap height={24} />
-        <Button text='Sign In' onPress={onSubmit} />
+        <Button
+          text='Sign In'
+          onPress={() => navigation.replace('MainApp')} />
         <Gap height={12} />
         <Button
           text='Create New Account'
