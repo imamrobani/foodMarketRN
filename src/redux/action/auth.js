@@ -1,10 +1,7 @@
 import axios from 'axios'
+import { API_HOST } from '../../config'
 import { showMessage, storeData } from '../../utils'
 import { setLoading } from './global'
-
-const API_HOST = {
-  url: 'http://foodmarket-backend.buildwithangga.id/api'
-}
 
 export const singUpAction = (dataRegister, photoReducer, navigation) => (dispatch) => {
   axios.post(`${API_HOST.url}/register`, dataRegister)
@@ -40,7 +37,7 @@ export const singUpAction = (dataRegister, photoReducer, navigation) => (dispatc
       dispatch(setLoading(false))
     })
     .catch(err => {
-      console.log('err', err.response)
+      // console.log('err', err.response)
       dispatch(setLoading(false))
       showMessage(err?.response?.data?.message)
     })
