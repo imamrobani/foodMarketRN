@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { startDetecting } from 'react-native/Libraries/Utilities/PixelRatio'
 import { Number } from '..'
 import { IcStarOff, IcStarOn } from '../../../assets'
+import { Colors, Fonts } from '../../../const'
 
 const Rating = ({ number }) => {
   const renderStar = () => {
@@ -18,10 +19,8 @@ const Rating = ({ number }) => {
   }
   return (
     <View style={styles.ratingContainer}>
-      <View style={styles.starContainer}>
-        {renderStar()}
-      </View>
-      <Number number={number} type='decimal' />
+      <View style={styles.starContainer}>{renderStar()}</View>
+      <Number number={number} type='decimal' style={styles.numberRating} />
     </View>
   )
 }
@@ -29,6 +28,11 @@ const Rating = ({ number }) => {
 export default Rating
 
 const styles = StyleSheet.create({
-  ratingContainer: { flexDirection: 'row', alignItems: 'center' },
-  starContainer: { flexDirection: 'row', marginRight: 4 }
+  ratingContainer: { flexDirection: 'row' },
+  starContainer: { flexDirection: 'row', marginRight: 4 },
+  numberRating: {
+    fontSize: 12,
+    fontFamily: Fonts.POPPINS_REGULAR,
+    color: Colors.blueyGrey
+  }
 })

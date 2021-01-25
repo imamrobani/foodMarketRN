@@ -57,6 +57,6 @@ export const signInAction = (form, navigation) => (dispatch) => {
     })
     .catch(err => {
       dispatch(setLoading(false))
-      showMessage(err?.response?.data?.message)
+      showMessage(err?.response?.data?.data?.message)
     })
 }

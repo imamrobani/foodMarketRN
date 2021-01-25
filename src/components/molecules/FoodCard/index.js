@@ -1,17 +1,19 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { Rating } from '..'
 import Fonts from '../../../const/Fonts'
 
-const FoodCard = ({ image, name, rating }) => {
+const FoodCard = ({ image, name, rating, onPress }) => {
   return (
-    <View style={styles.container}>
-      <Image source={image} style={styles.image} />
-      <View style={styles.content}>
-        <Text>{name}</Text>
-        <Rating number={rating} />
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+      <View style={styles.container}>
+        <Image source={image} style={styles.image} />
+        <View style={styles.content}>
+          <Text>{name}</Text>
+          <Rating number={rating} />
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
