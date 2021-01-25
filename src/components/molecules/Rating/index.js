@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { startDetecting } from 'react-native/Libraries/Utilities/PixelRatio'
+import { Number } from '..'
 import { IcStarOff, IcStarOn } from '../../../assets'
 
 const Rating = ({ number }) => {
@@ -8,9 +9,9 @@ const Rating = ({ number }) => {
     let star = []
     for (let i = 1; i <= 5; i++) {
       if (i <= number) {
-        star.push(<IcStarOn />)
+        star.push(<IcStarOn key={i} />)
       } else {
-        star.push(<IcStarOff />)
+        star.push(<IcStarOff key={i} />)
       }
     }
     return star
@@ -20,7 +21,7 @@ const Rating = ({ number }) => {
       <View style={styles.starContainer}>
         {renderStar()}
       </View>
-      <Text>{number}</Text>
+      <Number number={number} type='decimal' />
     </View>
   )
 }
