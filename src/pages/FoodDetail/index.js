@@ -1,16 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { FoodDummy6, IcBackWhite } from '../../assets'
 import { Button, Counter, Number, Rating } from '../../components'
 import Fonts from '../../const/Fonts'
+import { getData } from '../../utils'
 
 const FoodDetail = ({ navigation, route }) => {
-  const { name, picturePath, description, ingredients, rate, price } = route.params
+  const { id, name, picturePath, description, ingredients, rate, price } = route.params
   const [totalItem, setTotalItem] = useState(1)
+  const [userProfile, setUserProfile] = useState({})
+
+  useEffect(() => {
+    getData('userProfile').then(res => {
+      setUserProfile(res)
+    })
+  }, [])
 
   const onCounterChange = (value) => {
-    console.log('counter: ', value)
     setTotalItem(value)
+  }
+
+  const onOrder = () => {
+    const totalPrice = totalItem * price
+    const driver = 50000
+    const tax = 10 / 100 * (totalPrice)
+    const total = totalPrice + driver + tax
+
+    const data = {
+      item: {
+        id,
+        name,
+        price,
+        picturePath
+      },
+      transaction: {
+        totalItem,
+        totalPrice,
+        driver,
+        tax,
+        total,
+      },
+      userProfile
+    }
+
+    console.log('formData', data)
+    navigation.navigate('OrderSummary', data)
   }
 
   return (
@@ -41,7 +75,7 @@ const FoodDetail = ({ navigation, route }) => {
             <Number number={totalItem * price} style={styles.priceTotal} />
           </View>
           <View style={styles.button}>
-            <Button text='Order Now' onPress={() => navigation.navigate('OrderSummary')} />
+            <Button text='Order Now' onPress={onOrder} />
           </View>
         </View>
       </View>
