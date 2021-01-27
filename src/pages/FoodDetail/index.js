@@ -43,7 +43,7 @@ const FoodDetail = ({ navigation, route }) => {
       userProfile
     }
 
-    console.log('formData', data)
+    // console.log('formData', data)
     navigation.navigate('OrderSummary', data)
   }
 
