@@ -32,24 +32,29 @@ const ItemListFood = ({ image, onPress, rating, items, price, type, name, date, 
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>
-                {items} items.IDR {price}
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.price}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number number={price} style={styles.price} />
+              </View>
             </View>
           </>
         )
       case 'past-orders':
+        const formateDate = new Date(date).toDateString()
         return (
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>
-                {items} items.IDR {price}
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.price}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number number={price} style={styles.price} />
+              </View>
             </View>
             <View>
-              <Text style={styles.date}>{date}</Text>
-              <Text style={styles.status}>{status}</Text>
+              <Text style={styles.date}>{formateDate}</Text>
+              <Text style={styles.status(status)}>{status}</Text>
             </View>
           </>
         )
@@ -115,9 +120,17 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.POPPINS_REGULAR,
     color: Colors.blueyGrey
   },
-  status: {
+  status: (status) => ({
     fontSize: 10,
     fontFamily: Fonts.POPPINS_REGULAR,
-    color: Colors.fadedRed
+    color: status === 'CANCELLED' ? Colors.fadedRed : Colors.topaz
+  }),
+  row: { flexDirection: 'row', alignItems: 'center' },
+  dot: {
+    width: 3,
+    height: 3,
+    borderRadius: 3,
+    backgroundColor: Colors.blueyGrey,
+    marginHorizontal: 4
   }
 })

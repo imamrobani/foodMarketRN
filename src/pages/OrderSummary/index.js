@@ -1,24 +1,16 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { FoodDummy1 } from '../../assets'
+import { WebView } from 'react-native-webview'
 import { Button, Gap, Header, ItemListFood, ItemValue, Loading } from '../../components'
 import { API_HOST } from '../../config'
 import { Colors, Fonts } from '../../const'
 import { getData } from '../../utils'
-import { WebView } from 'react-native-webview'
 
 const OrederSummary = ({ navigation, route }) => {
   const { item, transaction, userProfile } = route.params
-  const [token, setToken] = useState('')
   const [isPaymentOpen, setIsPaymentOpen] = useState(false)
   const [paymentURL, setPaymentURL] = useState('https://google.com')
-
-  useEffect(() => {
-    getData('token').then(res => {
-      setToken(res.value)
-    })
-  })
 
   const onCheckout = () => {
     const data = {
@@ -28,26 +20,30 @@ const OrederSummary = ({ navigation, route }) => {
       total: transaction.total,
       status: 'PENDING'
     }
-    axios.post(`${API_HOST.url}/checkout`, data, {
-      headers: {
-        'Authorization': token
-      }
+    getData('token').then(resToken => {
+      axios.post(`${API_HOST.url}/checkout`, data, {
+        headers: {
+          'Authorization': resToken.value
+        }
+      })
+        .then(res => {
+          // console.log('checkout success: ', res)
+          setIsPaymentOpen(true)
+          setPaymentURL(res.data.data.payment_url)
+        })
+        .catch(err => {
+          console.log('err checkout: ', err.response)
+        })
+
     })
-      .then(res => {
-        console.log('checkout success: ', res)
-        setIsPaymentOpen(true)
-        setPaymentURL(res.data.data.payment_url)
-      })
-      .catch(err => {
-        console.log('err checkout: ', err)
-      })
   }
 
   const onNavChange = (state) => {
-    console.log('nav ', state)
+    // console.log('nav ', state)
     const titleWeb = 'Laravel'
     if (state.title === titleWeb) {
-      navigation.replace('SuccessOrder')
+      navigation.reset({ index: 0, routes: [{ name: 'SuccessOrder' }] })
+
     }
   }
 
