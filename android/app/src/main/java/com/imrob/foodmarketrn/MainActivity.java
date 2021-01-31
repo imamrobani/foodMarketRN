@@ -1,4 +1,4 @@
-package com.foodmarketrn;
+package com.imrob.foodmarketrn;
 
 import com.facebook.react.ReactActivity;
 
