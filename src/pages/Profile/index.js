@@ -1,26 +1,79 @@
 import React, { useEffect, useState } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-import { ProfileDummy } from '../../assets'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { launchImageLibrary } from 'react-native-image-picker'
 import { ProfileTabSection } from '../../components/molecules'
+import { API_HOST } from '../../config'
 import { Colors, Fonts } from '../../const'
-import { getData } from '../../utils'
+import { getData, showMessage, storeData } from '../../utils'
+import axios from 'axios'
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState({})
 
   useEffect(() => {
+    updateUserProfile()
+  }, [])
+
+  const updateUserProfile = () => {
     getData('userProfile').then(res => {
       setUserProfile(res)
     })
-  }, [])
+  }
+
+  const updatePhoto = () => {
+    launchImageLibrary({
+      quality: 0.7,
+      maxWidth: 200,
+      maxHeight: 200
+    },
+      (response) => {
+        // console.log('res: ', res)
+        if (response.didCancel || response.errorCode) {
+          showMessage('Anda tidak memilih foto')
+        } else {
+          const source = { uri: response.uri }
+          const dataImage = {
+            uri: response.uri,
+            type: response.type,
+            name: response.fileName
+          }
+
+          const photoForUpload = new FormData()
+          photoForUpload.append('file', dataImage)
+
+          getData('token').then(resToken => {
+            axios.post(`${API_HOST.url}/user/photo`, photoForUpload, {
+              headers: {
+                'Authorization': resToken.value,
+                'Content-Type': 'multipart/form-data'
+              }
+            })
+              .then(res => {
+                getData('userProfile').then(resUser => {
+                  showMessage('Update photo berhasil', 'success')
+                  resUser.profile_photo_url = `http://foodmarket-backend.buildwithangga.id/storage/${res.data.data[0]}`
+                  storeData('userProfile', resUser).then(() => {
+                    updateUserProfile()
+                  })
+                })
+              })
+              .catch(err => {
+                showMessage(err.response.data.message)
+              })
+          })
+        }
+      })
+  }
 
   return (
     <View style={styles.page}>
       <View style={styles.profileDetail}>
         <View style={styles.photo}>
-          <View style={styles.borderPhoto}>
-            <Image source={{ uri: userProfile.profile_photo_url }} style={styles.photoContainer} />
-          </View>
+          <TouchableOpacity onPress={updatePhoto} >
+            <View style={styles.borderPhoto}>
+              <Image source={{ uri: userProfile.profile_photo_url }} style={styles.photoContainer} />
+            </View>
+          </TouchableOpacity>
         </View>
         <Text style={styles.name}>{userProfile.name}</Text>
         <Text style={styles.email}>{userProfile.email}</Text>
