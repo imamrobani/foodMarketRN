@@ -7,12 +7,14 @@ import { Colors, Fonts } from '../../const'
 import { getData, showMessage, storeData } from '../../utils'
 import axios from 'axios'
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const [userProfile, setUserProfile] = useState({})
 
   useEffect(() => {
-    updateUserProfile()
-  }, [])
+    navigation.addListener('focus', () => {
+      updateUserProfile()
+    })
+  }, [navigation])
 
   const updateUserProfile = () => {
     getData('userProfile').then(res => {

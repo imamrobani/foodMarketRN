@@ -13,7 +13,8 @@ import {
   FoodDetail,
   OrderSummary,
   SuccessOrder,
-  OrderDetail
+  OrderDetail,
+  EditProfile
 } from '../pages'
 import { BottomNavigator } from '../components'
 
@@ -43,6 +44,7 @@ const Router = () => {
       <Stack.Screen name="OrderSummary" component={OrderSummary} options={{ headerShown: false }} />
       <Stack.Screen name="SuccessOrder" component={SuccessOrder} options={{ headerShown: false }} />
       <Stack.Screen name="OrderDetail" component={OrderDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }
