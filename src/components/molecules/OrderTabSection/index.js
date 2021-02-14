@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, Text, View, Dimensions, Image, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, Dimensions, Image, ScrollView, RefreshControl } from 'react-native'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
 import { ItemListFood } from '..';
 import { FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4 } from '../../../assets';
@@ -35,14 +35,24 @@ const InProgress = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { inProgress } = useSelector(state => state.orderReducer)
+  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
     dispatch(getInProgress())
   }, [])
 
+  const onRefresh = () => {
+    setRefreshing(true)
+    dispatch(getInProgress())
+    setRefreshing(false)
+  }
+
   return (
     <View style={{ paddingTop: 8, paddingHorizontal: 24 }}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         {inProgress.map((order) => {
           return (
             <ItemListFood
@@ -66,14 +76,24 @@ const PastOrders = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { pastOrders } = useSelector(state => state.orderReducer)
+  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
     dispatch(getPastOrders())
   }, [])
 
+  const onRefresh = () => {
+    setRefreshing(true)
+    dispatch(getPastOrders())
+    setRefreshing(false)
+  }
+
   return (
     <View style={{ paddingTop: 8, paddingHorizontal: 24 }}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         {pastOrders.map((order) => {
           return (
             <ItemListFood
