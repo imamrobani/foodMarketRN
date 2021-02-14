@@ -5,7 +5,7 @@ import { FoodDummy1 } from '../../assets'
 import { Button, Gap, Header, ItemListFood, ItemValue } from '../../components'
 import { API_HOST } from '../../config'
 import { Colors, Fonts } from '../../const'
-import { getData } from '../../utils'
+import { getData, showMessage } from '../../utils'
 
 const OrderDetail = ({ route, navigation }) => {
   const order = route.params
@@ -21,11 +21,10 @@ const OrderDetail = ({ route, navigation }) => {
         }
       })
         .then((res) => {
-          console.log('succes cancel : ', res.data)
           navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] })
         })
         .catch((err) => {
-          console.log('err cancel: ', err)
+          showMessage(err?.response?.message || 'Tejadi Kesalahan')
         })
 
     })

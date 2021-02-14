@@ -27,7 +27,6 @@ const Profile = () => {
       maxHeight: 200
     },
       (response) => {
-        // console.log('res: ', res)
         if (response.didCancel || response.errorCode) {
           showMessage('Anda tidak memilih foto')
         } else {
@@ -58,7 +57,7 @@ const Profile = () => {
                 })
               })
               .catch(err => {
-                showMessage(err.response.data.message)
+                showMessage(err?.response?.message || 'Terjadi Kesalahan')
               })
           })
         }

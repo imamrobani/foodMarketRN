@@ -26,7 +26,6 @@ const SignUp = ({ navigation }) => {
       maxWidth: 200,
       maxHeight: 200
     }, res => {
-      // console.log('res: ', res)
       if (res.didCancel || res.errorCode) {
         showMessage('Anda tidak memilih foto')
       } else {

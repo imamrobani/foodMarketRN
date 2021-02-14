@@ -5,7 +5,7 @@ import { WebView } from 'react-native-webview'
 import { Button, Gap, Header, ItemListFood, ItemValue, Loading } from '../../components'
 import { API_HOST } from '../../config'
 import { Colors, Fonts } from '../../const'
-import { getData } from '../../utils'
+import { getData, showMessage } from '../../utils'
 
 const OrederSummary = ({ navigation, route }) => {
   const { item, transaction, userProfile } = route.params
@@ -27,19 +27,17 @@ const OrederSummary = ({ navigation, route }) => {
         }
       })
         .then(res => {
-          // console.log('checkout success: ', res)
           setIsPaymentOpen(true)
           setPaymentURL(res.data.data.payment_url)
         })
         .catch(err => {
-          console.log('err checkout: ', err.response)
+          showMessage(err?.response?.message || 'Tejadi Kesalahan')
         })
 
     })
   }
 
   const onNavChange = (state) => {
-    // console.log('nav ', state)
     const titleWeb = 'Laravel'
     if (state.title === titleWeb) {
       navigation.reset({ index: 0, routes: [{ name: 'SuccessOrder' }] })

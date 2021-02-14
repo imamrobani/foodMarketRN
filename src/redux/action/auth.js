@@ -37,9 +37,8 @@ export const singUpAction = (dataRegister, photoReducer, navigation) => (dispatc
       dispatch(setLoading(false))
     })
     .catch(err => {
-      // console.log('err', err.response)
       dispatch(setLoading(false))
-      showMessage(err?.response?.data?.message)
+      showMessage(err?.response?.message || 'Terjadi Kesalahan')
     })
 }
 

@@ -1,14 +1,14 @@
 import axios from "axios"
 import { API_HOST } from "../../config"
+import { showMessage } from "../../utils"
 
 export const getFoodData = () => (dispatch) => {
   axios.get(`${API_HOST.url}/food`)
     .then(res => {
-      // console.log('res', res)
       dispatch({ type: 'SET_FOOD', value: res.data.data.data })
     })
     .catch(err => {
-      console.log('err', err)
+      showMessage(err?.response?.message || 'Tejadi Kesalahan')
     })
 }
 
@@ -26,7 +26,7 @@ export const getFoodDataByTypes = (types) => (dispatch) => {
       }
     })
     .catch(err => {
-      console.log('err', err)
+      showMessage(err?.response?.message || 'Tejadi Kesalahan')
     })
 }
 

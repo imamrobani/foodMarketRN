@@ -1,6 +1,6 @@
 import axios from "axios"
 import { API_HOST } from "../../config"
-import { getData } from "../../utils"
+import { getData, showMessage } from "../../utils"
 
 export const getOrders = () => (dispatch) => {
   getData('token').then(resToken => {
@@ -10,11 +10,10 @@ export const getOrders = () => (dispatch) => {
       }
     })
       .then(res => {
-        console.log('get orders: ', res)
         dispatch({ type: 'SET_ORDERS', value: res.data.data.data })
       })
       .catch(err => {
-        console.log('err get orders', err)
+        showMessage(err?.response?.message || 'Tejadi Kesalahan')
       })
   })
 }
@@ -50,7 +49,7 @@ export const getInProgress = () => (dispatch) => {
         })
       }))
       .catch(err => {
-        console.log('err in progress', err)
+        showMessage(err?.response?.message || 'Tejadi Kesalahan')
       })
   })
 }
@@ -70,7 +69,6 @@ export const getPastOrders = () => (dispatch) => {
       })
     ])
       .then(axios.spread((res1, res2) => {
-        console.log('get past order: ', res1.data.data.data)
         const cancelled = res1.data.data.data
         const delivered = res2.data.data.data
         dispatch({
@@ -79,7 +77,7 @@ export const getPastOrders = () => (dispatch) => {
         })
       }))
       .catch(err => {
-        console.log('err pasr order', err)
+        showMessage(err?.response?.message || 'Tejadi Kesalahan')
       })
   })
 }
